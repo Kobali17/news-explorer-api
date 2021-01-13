@@ -1,0 +1,37 @@
+{
+  "name": "diploma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "celebrate": "^13.0.4",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "express": "^4.17.1",
+    "express-winston": "^4.0.5",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.11",
+    "nodemon": "^2.0.7",
+    "package.json": "^2.0.1",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {},
+  "eslint": "^7.17.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "dev": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kobali17/news-explorer-api.git"
+  },
+  "author": "Luna Green",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kobali17/news-explorer-api/issues"
+  },
+  "homepage": "https://github.com/Kobali17/news-explorer-api#readme"
+}
