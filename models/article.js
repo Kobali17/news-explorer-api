@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const articleSchema = new mongoose.Schema({
   keyword: {
     type: String,
@@ -20,18 +21,12 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 8,
-    select: false,
-  },
   link: {
     type: String,
     required: true,
     validate: {
       validator(v) {
-        const regex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi;
+        const regex = /^(https?:\/\/)?([\da-z\\.-]+)\.([a-z\\.]{2,6})([/\w \\.-]*)*\/?$/gi;
         return regex.test(v);
       },
       message: 'Переданы некорректные данные',
@@ -42,7 +37,7 @@ const articleSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(v) {
-        const regex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/gi;
+        const regex = /^(https?:\/\/)?([\da-z\\.-]+)\.([a-z.]{2,6})([/\w \\.-]*)*\/?$/gi;
         return regex.test(v);
       },
       message: 'Переданы некорректные данные',
@@ -53,6 +48,6 @@ const articleSchema = new mongoose.Schema({
     required: true,
     select: false,
   },
-})
+});
 
 module.exports = mongoose.model('article', articleSchema);

@@ -2,14 +2,10 @@
   "extends": ["airbnb-base"
   ],
   "globals": {
-    "console": true
-
+"console": true
   },
   "rules": {
-    "prefer-promise-reject-errors": 0,
-    "no-console": 0,
-    "import/no-extraneous-dependencies": 0,
-    "react/prop-types": 0,
+    "no-unused-vars": [2],
     "no-underscore-dangle": [
       2,
       {

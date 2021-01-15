@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const UnauthorizedError = require('../middlewares/errors/unauthorized-err.js');
 const NotFoundError = require('../middlewares/errors/not-found-err.js');
 const BadRequestError = require('../middlewares/errors/bad-req-err.js');
 const User = require('../models/user');
-
 
 module.exports.createUser = (req, res, next) => {
   const {
@@ -14,11 +14,11 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       email,
       password: hash,
-      name
+      name,
     })
       .then((user) => {
         const userData = {
-          email: user.email, name: user.name
+          email: user.email, name: user.name,
         };
         res.send(userData);
       }).catch((err) => {
@@ -31,9 +31,8 @@ module.exports.createUser = (req, res, next) => {
       })).catch(next);
 };
 
-
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.params.id).orFail(new NotFoundError('Пользователь не найден')).then((user) => {
+  User.findById(req.user.id).orFail(new NotFoundError('Пользователь не найден')).then((user) => {
     res.send(user);
   })
     .catch(next);

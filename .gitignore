@@ -3,6 +3,7 @@ logs
 *.log
 npm-debug.log*
 .eslintcache
+.env
 
 # Dependency directory
 **/node_modules

@@ -1,11 +1,10 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-const { celebrate, Joi } = require('celebrate');
 const article = require('./routes/article.js');
 const user = require('./routes/user.js');
-const { login, createUser } = require('./controllers/user');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./middlewares/errors/not-found-err.js');
@@ -21,21 +20,9 @@ const { PORT = 3000 } = process.env;
 app.use(requestLogger);
 app.use(bodyParser.json());
 
-app.post('/api/signin', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-  }),
-}), login);
-
-app.post('/api/signup', celebrate({
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().min(8),
-    name: Joi.string().min(2).max(30),
-  }),
-}), createUser);
-
+app.use('/api/signup');
+app.use('/api/signin');
+app.use('/', auth);
 app.use('/api/article*', auth);
 app.use('/api', article);
 app.use('/api/user*', auth);
@@ -49,7 +36,6 @@ app.use(errorLogger);
 
 app.use(errors());
 
-// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, _) => {
   const { statusCode = 500, message } = err;
   res.status(statusCode)
@@ -57,10 +43,7 @@ app.use((err, req, res, _) => {
       message: statusCode === 500
         ? 'На сервере произошла ошибка'
         : message,
+      _,
     });
 });
-app.listen(PORT, () => {
-  console.log(`Listen on port ${PORT}`);
-});
-
-
+app.listen(PORT);
