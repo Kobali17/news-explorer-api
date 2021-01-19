@@ -16,7 +16,17 @@ module.exports.createCard = (req, res, next) => {
   return Article.create({
     keyword, title, text, date, source, link, image, owner: req.user._id,
   })
-    .then((card) => res.send(card))
+    .then((card) => {
+      const cardData = {
+        keyword: card.keyword,
+        title: card.title,
+        text: card.text,
+        date: card.date,
+        source: card.source,
+        image: card.image,
+      };
+      res.send(cardData);
+    })
     .catch(next);
 };
 
