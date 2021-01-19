@@ -22,9 +22,8 @@ app.use(requestLogger);
 app.use(bodyParser.json());
 
 app.use('/api', index);
-app.use('/article*', auth);
+app.use('/api', auth);
 app.use('/api', article);
-app.use('/user*', auth);
 app.use('/api', user);
 
 app.use((req, res, next) => {
