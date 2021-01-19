@@ -5,12 +5,13 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const article = require('./routes/article.js');
 const user = require('./routes/user.js');
+const index = require('./routes/index.js');
 const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./middlewares/errors/not-found-err.js');
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017/mydb', {
+mongoose.connect('mongodb://localhost:27017/newsdb', {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -20,9 +21,8 @@ const { PORT = 3000 } = process.env;
 app.use(requestLogger);
 app.use(bodyParser.json());
 
-app.use('/api/signup');
-app.use('/api/signin');
-app.use('/', auth);
+app.use('/api/signin', index);
+app.use('/api/signup', index);
 app.use('/api/article*', auth);
 app.use('/api', article);
 app.use('/api/user*', auth);
@@ -46,4 +46,6 @@ app.use((err, req, res, _) => {
       _,
     });
 });
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`Listen on port ${PORT}`);
+});

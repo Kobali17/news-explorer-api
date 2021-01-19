@@ -19,6 +19,10 @@ router.post('/articles', celebrate({
   }),
 }), createCard);
 
-router.delete('/articles/:articleId', deleteCard);
+router.delete('/articles/:articleId', celebrate({
+  params: Joi.object().keys({
+    articleId: Joi.string().required().alphanum().length(24),
+  }),
+}), deleteCard);
 
 module.exports = router;

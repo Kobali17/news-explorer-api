@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+
+const { JWT_SECRET, NODE_ENV } = process.env;
 const UnauthorizedError = require('../middlewares/errors/unauthorized-err.js');
 const NotFoundError = require('../middlewares/errors/not-found-err.js');
-const BadRequestError = require('../middlewares/errors/bad-req-err.js');
+const ConfilctError = require('../middlewares/errors/сonflict-err.js');
 const User = require('../models/user');
 
 module.exports.createUser = (req, res, next) => {
@@ -23,8 +25,7 @@ module.exports.createUser = (req, res, next) => {
         res.send(userData);
       }).catch((err) => {
         if (err.code === 11000) {
-          // duplication error
-          throw new BadRequestError('Пользователь с таким email уже зарегистрирован');
+          throw new ConfilctError('Пользователь с таким email уже зарегистрирован');
         } else {
           next(err);
         }
@@ -32,7 +33,7 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
-  User.findById(req.user.id).orFail(new NotFoundError('Пользователь не найден')).then((user) => {
+  User.findById(req.user._id).orFail(new NotFoundError('Пользователь не найден')).then((user) => {
     res.send(user);
   })
     .catch(next);
@@ -45,7 +46,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       let token;
       try {
-        token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+        token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       } catch (err) {
         throw new UnauthorizedError('Необходима авторизация');
       }
