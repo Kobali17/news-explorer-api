@@ -21,11 +21,10 @@ const { PORT = 3000 } = process.env;
 app.use(requestLogger);
 app.use(bodyParser.json());
 
-app.use('/api/signin', index);
-app.use('/api/signup', index);
-app.use('/api/article*', auth);
+app.use('/api', index);
+app.use('/article*', auth);
 app.use('/api', article);
-app.use('/api/user*', auth);
+app.use('/user*', auth);
 app.use('/api', user);
 
 app.use((req, res, next) => {
