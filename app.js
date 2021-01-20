@@ -10,13 +10,14 @@ const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./middlewares/errors/not-found-err.js');
 
+const { PORT = 3000, DATABASE_ADDRESS = 'mongodb://localhost:27017/newsdb' } = process.env;
+
 const app = express();
-mongoose.connect('mongodb://localhost:27017/newsdb', {
+mongoose.connect(DATABASE_ADDRESS, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
 });
-const { PORT = 3000 } = process.env;
 
 app.use(requestLogger);
 app.use(bodyParser.json());
