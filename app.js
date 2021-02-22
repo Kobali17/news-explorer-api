@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const article = require('./routes/article.js');
 const user = require('./routes/user.js');
 const index = require('./routes/index.js');
@@ -13,6 +14,7 @@ const NotFoundError = require('./middlewares/errors/not-found-err.js');
 const { PORT = 3000, DATABASE_ADDRESS = 'mongodb://localhost:27017/newsdb' } = process.env;
 
 const app = express();
+app.use(cors());
 mongoose.connect(DATABASE_ADDRESS, {
   useNewUrlParser: true,
   useCreateIndex: true,
