@@ -14,13 +14,14 @@ const NotFoundError = require('./middlewares/errors/not-found-err.js');
 const { PORT = 3000, DATABASE_ADDRESS = 'mongodb://localhost:27017/newsdb' } = process.env;
 
 const app = express();
-app.use(cors());
+
 mongoose.connect(DATABASE_ADDRESS, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
 });
 
+app.use(cors());
 app.use(requestLogger);
 app.use(bodyParser.json());
 
