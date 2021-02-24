@@ -7,10 +7,10 @@ function getCardRepresentation(card) {
     _id: card.id,
     keyword: card.keyword,
     title: card.title,
-    text: card.text,
-    date: card.date,
+    description: card.description,
+    publishedAt: card.publishedAt,
     source: card.source,
-    image: card.image,
+    urlToImage: card.urlToImage,
   };
 }
 
@@ -22,11 +22,11 @@ module.exports.getCards = (req, res, next) => {
 
 module.exports.createCard = (req, res, next) => {
   const {
-    keyword, title, text, date, source, link, image,
+    keyword, title, description, publishedAt, source, url, urlToImage,
   } = req.body;
 
   return Article.create({
-    keyword, title, text, date, source, link, image, owner: req.user._id,
+    keyword, title, description, publishedAt, source, url, urlToImage, owner: req.user._id,
   })
     .then((card) => {
       res.send(getCardRepresentation(card));

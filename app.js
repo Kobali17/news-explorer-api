@@ -11,7 +11,7 @@ const auth = require('./middlewares/auth');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./middlewares/errors/not-found-err.js');
 
-const { PORT = 3000, DATABASE_ADDRESS = 'mongodb://localhost:27017/newsdb' } = process.env;
+const { PORT = 3000, DATABASE_ADDRESS = 'mongodb://localhost:27017/mydb' } = process.env;
 
 const app = express();
 
