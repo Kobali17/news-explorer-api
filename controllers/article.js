@@ -11,6 +11,7 @@ function getCardRepresentation(card) {
     publishedAt: card.publishedAt,
     source: card.source,
     urlToImage: card.urlToImage,
+    owner: card.owner,
   };
 }
 
