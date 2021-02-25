@@ -13,10 +13,7 @@ router.post('/articles', celebrate({
     title: Joi.string().required(),
     description: Joi.string().required(),
     publishedAt: Joi.string().required(),
-    source: Joi.object().keys({
-      name: Joi.string().required(),
-      id: Joi.string(),
-    }),
+    source: Joi.string().required(),
     url: Joi.string().required().uri(),
     urlToImage: Joi.string().required().uri(),
   }),

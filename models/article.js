@@ -18,7 +18,7 @@ const articleSchema = new mongoose.Schema({
     required: true,
   },
   source: {
-    type: Object,
+    type: String,
     required: true,
   },
   url: {
